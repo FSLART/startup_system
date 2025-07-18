@@ -15,28 +15,23 @@ def generate_launch_description():
         package='mission_controller',
         executable='mission_controller',
         name='mission_controller',
-        output='screen'
+        output='screen',
+        arguments=['--ros-args', '--log-level', 'warn'],
     )
 
     state_controller_node = Node(
         package='state_controller',
         executable='state_controller',
         name='state_controller',
-        output='screen'
+        output='screen',
+        arguments=['--ros-args', '--log-level', 'warn'],
     )
 
     other_nodes = [
-        #Node(
-         #   package='zed_bridge',
-          #  executable='zed_bridge',
-           # name='zed_bridge',
-            #output='screen'
-        #),
         Node(
-            package='tf2_ros',
-            executable='static_transform_publisher',
-            name='zed_base_link',
-            arguments=['0', '0', '0', '0', '0', '0', 'base_link', 'zed_camera_center'],
+            package='zed_bridge',
+            executable='zed_bridge',
+            name='zed_bridge',
             output='screen'
         ),
         #IncludeLaunchDescription(
@@ -46,9 +41,17 @@ def generate_launch_description():
            # ])
         #),
         Node(
-            package='spac2_0',
-            executable='spac_node',
-            name='DriveModelNode',
+            package='tf2_ros',
+            executable='static_transform_publisher',
+            name='rear_axle_link',
+            arguments=['-1.5', '0', '-0.3', '0', '0', '0', 'base_footprint', 'rear_axle_link'],
+            output='screen'
+        ),
+        Node(
+            package='tf2_ros',
+            executable='static_transform_publisher',
+            name='zed_camera_center',
+            arguments=['-0.85', '0', '0.4', '0', '0', '0', 'base_footprint', 'zed_camera_center'],
             output='screen'
         ),
         Node(

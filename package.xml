@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="3">
-  <name>startup</name>
+  <name>startup_system</name>
   <version>0.0.1</version>
   <description>Startup launch package to initialize all nodes</description>
   <maintainer email="2221411@my.ipleiria.pt">João Roxo</maintainer>
@@ -14,6 +14,7 @@
   <exec_depend>launch_ros</exec_depend>
 
   <!-- Pacotes que os launch files podem lançar -->
+  <exec_depend>zed_bridge</exec_depend>
   <exec_depend>mission_controller</exec_depend>
   <exec_depend>state_controller</exec_depend>
   <exec_depend>tf2_ros</exec_depend>

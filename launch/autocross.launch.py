@@ -17,12 +17,12 @@ def generate_launch_description():
             parameters=[config_file],
             output='screen'
         ),
-        #Node(
-         #   package='zed_bridge',
-         #   executable='zed_bridge',
-         #   name='zed_bridge',
-         #   output='screen',
-        #),
+        Node(
+           package='zed_bridge',
+           executable='zed_bridge',
+           name='zed_bridge',
+           output='screen',
+        ),
         Node(
             package='ekf_node',
             executable='ekf_node',
@@ -34,5 +34,11 @@ def generate_launch_description():
             executable='spac_node',
             name='DriveModelNode',
             output='screen'
+        ),
+        Node(
+            package='path_planner',
+            executable='my_node',
+            name='path_planner',
+            arguments=['--ros-args', '-p', 'planner_mode:=4'],
         ),
     ])

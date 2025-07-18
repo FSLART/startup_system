@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(startup)
+project(startup_system)
 
 find_package(ament_cmake REQUIRED)
 
