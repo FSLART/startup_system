@@ -3,7 +3,7 @@
   <name>startup</name>
   <version>0.0.1</version>
   <description>Startup launch package to initialize all nodes</description>
-  <maintainer email="roxo@example.com">João Roxo</maintainer>
+  <maintainer email="2221411@my.ipleiria.pt">João Roxo</maintainer>
   <license>Apache-2.0</license>
 
   <!-- Ferramentas de build -->
