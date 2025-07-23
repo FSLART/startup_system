@@ -9,14 +9,21 @@ def generate_launch_description():
         'config',
         'default_params.yaml'
     )
+
+    spac_config_file = os.path.join(
+        get_package_share_directory('spac2_0'),
+        'config',
+        'demo_params.yaml'
+    )
+
     return LaunchDescription([
-        Node(
-            package='safety_monitor',
-            executable='monitor_node',
-            name='SafetyMonitorNode',
-            parameters=[config_file],
-            output='screen'
-        ),
+        # Node(
+        #     package='safety_monitor',
+        #     executable='monitor_node',
+        #     name='SafetyMonitorNode',
+        #     parameters=[config_file],
+        #     output='screen'
+        # ),
         Node(
            package='zed_bridge',
            executable='zed_bridge',
@@ -33,7 +40,8 @@ def generate_launch_description():
             package='spac2_0',
             executable='spac_node',
             name='DriveModelNode',
-            output='screen'
+            parameters=[spac_config_file],
+            output='screen',
         ),
         Node(
             package='path_planner',
@@ -41,4 +49,24 @@ def generate_launch_description():
             name='path_planner',
             arguments=['--ros-args', '-p', 'planner_mode:=1'],
         ),
+        Node(
+            package="tf2_ros", 
+            executable="static_transform_publisher", 
+            arguments=["-0.5", "0", "0.95", "0", "0", "0", "base_footprint", "zed_camera_center"]
+        ),
+        # Node(
+        #     package='tf2_ros',
+        #     executable='static_transform_publisher',
+        #     name='rear_axle_link',
+        #     arguments=['-1.5', '0', '-0.3', '0', '0', '0', 'base_footprint', 'rear_axle_link'],
+        #     output='screen'
+        # ),
+        # Node(
+        #     package='tf2_ros',
+        #     executable='static_transform_publisher',
+        #     name='zed_camera_center',
+        #     arguments=['-0.85', '0', '0.4', '0', '0', '0', 'base_footprint', 'zed_camera_center'],
+        #     output='screen'
+        # ),
+        
     ])

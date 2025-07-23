@@ -11,6 +11,8 @@ def generate_launch_description():
         'default_params.yaml'
     )
 
+    xsens_parameters_file_path = os.path.join(get_package_share_directory('xsens_mti_ros2_driver'), 'param', 'xsens_mti_node.yaml')
+
     mission_controller_node = Node(
         package='mission_controller',
         executable='mission_controller',
@@ -28,12 +30,6 @@ def generate_launch_description():
     )
 
     other_nodes = [
-        Node(
-            package='zed_bridge',
-            executable='zed_bridge',
-            name='zed_bridge',
-            output='screen'
-        ),
         #IncludeLaunchDescription(
         #    XMLLaunchDescriptionSource([
          #       get_package_share_directory('foxglove_bridge'),
@@ -41,25 +37,12 @@ def generate_launch_description():
            # ])
         #),
         Node(
-            package='tf2_ros',
-            executable='static_transform_publisher',
-            name='rear_axle_link',
-            arguments=['-1.5', '0', '-0.3', '0', '0', '0', 'base_footprint', 'rear_axle_link'],
-            output='screen'
-        ),
-        Node(
-            package='tf2_ros',
-            executable='static_transform_publisher',
-            name='zed_camera_center',
-            arguments=['-0.85', '0', '0.4', '0', '0', '0', 'base_footprint', 'zed_camera_center'],
-            output='screen'
-        ),
-        Node(
-            package='safety_monitor',
-            executable='monitor_node',
-            name='SafetyMonitorNode',
-            parameters=[config_file],
-            output='screen'
+            package='xsens_mti_ros2_driver',  # Correct package name
+            executable='xsens_mti_node',
+            name='xsens_mti_node',
+            output='screen',
+            parameters=[xsens_parameters_file_path],  # Use the parameters file
+            arguments=[]
         ),
     ]
 

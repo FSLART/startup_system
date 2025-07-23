@@ -9,5 +9,5 @@ echo "[STARTUP] A iniciar o sistema..."
 bash /home/lart-tasha/setup_can_usb.sh
 
 # Lançar launch file
-ros2 launch startup initialize_nodes.launch.py
+ros2 launch startup_system initialize_nodes.launch.py
 
