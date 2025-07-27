@@ -21,6 +21,8 @@
   <exec_depend>foxglove_bridge</exec_depend>
   <exec_depend>spac2_0</exec_depend>
   <exec_depend>safety_monitor</exec_depend>
+  <exec_depend>ekf_node</exec_depend>
+  <exec_depend>xsens_mti_ros2_driver</exec_depend>
 
   <export>
     <build_type>ament_cmake</build_type>

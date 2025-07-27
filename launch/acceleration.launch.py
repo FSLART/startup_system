@@ -24,22 +24,22 @@ def generate_launch_description():
         #     parameters=[config_file],
         #     output='screen'
         # ),
-        Node(
-           package='zed_bridge',
-           executable='zed_bridge',
-           name='zed_bridge',
-           output='screen',
-        ),
-        Node(
-            package='ekf_node',
-            executable='ekf_node',
-            name='ekf_node',
-            output='screen',
-        ),
+        # Node(
+        #    package='zed_bridge',
+        #    executable='zed_bridge',
+        #    name='zed_bridge',
+        #    output='screen',
+        # ),
+        # Node(
+        #     package='ekf_node',
+        #     executable='ekf_node',
+        #     name='ekf_node',
+        #     output='screen',
+        # ),
         Node(
             package='spac2_0',
             executable='spac_node',
-            name='DriveModelNode',
+            name='spac_node',
             parameters=[spac_config_file],
             output='screen',
         ),
@@ -47,13 +47,13 @@ def generate_launch_description():
             package='path_planner',
             executable='my_node',
             name='path_planner',
-            arguments=['--ros-args', '-p', 'planner_mode:=1'],
+            arguments=['--ros-args', '-p', 'planner_mode:=4'],
         ),
-        Node(
-            package="tf2_ros", 
-            executable="static_transform_publisher", 
-            arguments=["-0.5", "0", "0.95", "0", "0", "0", "base_footprint", "zed_camera_center"]
-        ),
+        # Node(
+        #     package="tf2_ros", 
+        #     executable="static_transform_publisher", 
+        #     arguments=["-0.5", "0", "0.95", "0", "0", "0", "base_footprint", "zed_camera_center"]
+        # ),
         # Node(
         #     package='tf2_ros',
         #     executable='static_transform_publisher',
