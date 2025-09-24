@@ -29,6 +29,7 @@ def generate_launch_description():
         executable='zed_bridge',
         name='zed_bridge',
         output='screen',
+        
     )
 
     imu_node = Node(
@@ -51,6 +52,7 @@ def generate_launch_description():
         executable='ekf_node',
         name='ekf_node',
         output='screen',
+        # arguments=['--ros-args', '--log-level', 'warn'],
     )
 
     # other_nodes = [
