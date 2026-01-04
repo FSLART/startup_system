@@ -44,7 +44,7 @@ def generate_launch_description():
     tf_node = Node(
         package="tf2_ros", 
         executable="static_transform_publisher", 
-        arguments=["-0.5", "0", "0.95", "0", "0", "0", "base_footprint", "zed_camera_center"]
+        arguments=["-0.5", "0", "0.95", "0", "0", "0", "base_footprint","base_link", "zed_camera_center"]
     )
 
     ekf_node = Node(
@@ -56,12 +56,13 @@ def generate_launch_description():
     )
 
     rear_axle_node = Node(
-        package='rear_axle_node',
-        executable='rear_axle_node',
+        package='tf2_ros',
+        executable='static_transform_publisher',
         name='rear_axle_node',
         output='screen',
         arguments=['-1.15','0','0','0','0','0','base_footprint','base_link','rear_axle_link'],    
     )
+
     # other_nodes = [
     #     #IncludeLaunchDescription(
     #     #    XMLLaunchDescriptionSource([
