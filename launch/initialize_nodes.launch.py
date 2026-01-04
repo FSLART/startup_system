@@ -55,6 +55,13 @@ def generate_launch_description():
         # arguments=['--ros-args', '--log-level', 'warn'],
     )
 
+    rear_axle_node = Node(
+        package='rear_axle_node',
+        executable='rear_axle_node',
+        name='rear_axle_node',
+        output='screen',
+        arguments=['-1.15','0','0','0','0','0','base_footprint','base_link','rear_axle_link'],    
+    )
     # other_nodes = [
     #     #IncludeLaunchDescription(
     #     #    XMLLaunchDescriptionSource([
@@ -70,6 +77,7 @@ def generate_launch_description():
         zed_node,
         imu_node,
         ekf_node,
+        rear_axle_node,
 
         TimerAction(
             period=1.0,
