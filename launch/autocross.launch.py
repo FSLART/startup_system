@@ -17,6 +17,12 @@ def generate_launch_description():
         'demo_params.yaml'
     )
 
+    ppuma_config_file = os.path.join(
+        get_package_share_directory('p-puma'),
+        'config',
+        'params.yaml'
+    )
+
     return LaunchDescription([
         # Node(
         #     package='safety_monitor',
@@ -37,13 +43,21 @@ def generate_launch_description():
         #     name='ekf_node',
         #     output='screen',
         # ),
+        
         Node(
-            package='spac2_0',
-            executable='spac_node',
-            name='spac_node',
-            parameters=[spac_config_file],
+            package='p-puma',
+            executable='control_node',
+            name='p_puma',
+            parameters=[ppuma_config_file],
             output='screen'
         ),
+        # Node(
+        #     package='spac2_0',
+        #     executable='spac_node',
+        #     name='spac_node',
+        #     parameters=[spac_config_file],
+        #     output='screen'
+        # ),
         Node(
             package='path_planner',
             executable='my_node',
