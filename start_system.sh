@@ -1,7 +1,9 @@
 #!/bin/bash
 source /opt/ros/humble/setup.bash
 source /home/lart-tasha/Documents/repos/ros2_ws/install/setup.bash
+export ROS_DOMAIN_ID=42
 
+sleep 10
 echo "[STARTUP] A iniciar o sistema..."
 
 # Ativar interface CAN

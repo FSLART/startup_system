@@ -1,13 +1,36 @@
 from launch import LaunchDescription
-from launch_ros.actions import Node
+from launch_ros.actions import ComposableNodeContainer, Node
+from launch_ros.descriptions import ComposableNode
 from ament_index_python.packages import get_package_share_directory
 from launch.actions import IncludeLaunchDescription, TimerAction, DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
+from datetime import datetime
 import os
 
 def generate_launch_description():
-    
+
     xsens_parameters_file_path = os.path.join(get_package_share_directory('xsens_mti_ros2_driver'), 'param', 'xsens_mti_node.yaml')
+
+    zed_pkg_share = get_package_share_directory('zed_bridge')
+    recorder_config = os.path.join(zed_pkg_share, 'config', 'recorder_config.yaml')
+
+    now = datetime.now()
+
+    # Base: ~/Documents/bags
+    base_dir = os.path.expanduser("~/Documents/bags")
+
+    daily_path = os.path.join(base_dir, now.strftime("%Y"), now.strftime("%m"), now.strftime("%d"))
+
+    # Criar as pastas fisicamente se não existirem
+    os.makedirs(daily_path, exist_ok=True)
+
+    bag_name = f"bag_{now.strftime('%Y-%m-%d_%H-%M-%S')}"
+    full_uri = os.path.join(daily_path, bag_name)
+
+    print(f"--- CONFIGURAÇÃO DE GRAVAÇÃO ---")
+    print(f"Diretoria de destino: {daily_path}")
+    print(f"Nome da Bag: {bag_name}")
+    print(f"--------------------------------")
 
     # ppuma_config_file = os.path.join(
     #     get_package_share_directory('p-puma'),
@@ -39,13 +62,40 @@ def generate_launch_description():
         arguments=['--ros-args', '--log-level', 'warn'],
     )
 
-    zed_node = Node(
-        package='zed_bridge',
-        executable='zed_bridge',
-        name='zed_bridge',
+    camera_container = ComposableNodeContainer(
+        name='camera_container',
+        namespace='',
+        package='rclcpp_components',
+        executable='component_container',
+        composable_node_descriptions=[
+
+            ComposableNode(
+                package='zed_bridge',
+                plugin='ZedBridge',
+                name='zed_bridge',
+                extra_arguments=[{'use_intra_process_comms': True}]
+            ),
+
+            # Recorder
+            ComposableNode(
+                package='rosbag2_composable_recorder',
+                plugin='rosbag2_composable_recorder::ComposableRecorder',
+                name='recorder',
+                parameters=[
+                    recorder_config,
+                    {'storage.uri': full_uri}  
+                ],
+                extra_arguments=[{'use_intra_process_comms': True}]
+            )
+        ],
         output='screen',
-        arguments=['--ros-args', '--log-level', 'warn']
-        
+    )
+
+    recording_bridge_node = Node(
+        package='zed_bridge',
+        executable='recording_bridge.py',
+        name='recording_bridge',
+        output='screen'
     )
 
     imu_node = Node(
@@ -138,18 +188,20 @@ def generate_launch_description():
             'port': 8765,
             'address': '0.0.0.0',
             'tls': False,
-        }]
+        }],
+        arguments=['--ros-args', '--log-level', 'warn']
     )
 
     return LaunchDescription([
         tf_node,
         mission_controller_node,
-        zed_node,
+        camera_container,
+        recording_bridge_node,
         imu_node,
         graph_slam_node,
         foxglove_bridge,
         race_director_node,
         can_bridge_node,
         # p_puma_node,
-     
+
     ])
