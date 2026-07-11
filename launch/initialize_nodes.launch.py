@@ -16,12 +16,10 @@ def generate_launch_description():
 
     now = datetime.now()
 
-    # Base: ~/Documents/bags
     base_dir = os.path.expanduser("~/Documents/bags")
 
     daily_path = os.path.join(base_dir, now.strftime("%Y"), now.strftime("%m"), now.strftime("%d"))
 
-    # Criar as pastas fisicamente se não existirem
     os.makedirs(daily_path, exist_ok=True)
 
     bag_name = f"bag_{now.strftime('%Y-%m-%d_%H-%M-%S')}"
@@ -32,11 +30,6 @@ def generate_launch_description():
     print(f"Nome da Bag: {bag_name}")
     print(f"--------------------------------")
 
-    # ppuma_config_file = os.path.join(
-    #     get_package_share_directory('p-puma'),
-    #     'config',
-    #     'params.yaml'
-    # )
 
     mission_controller_node = Node(
         package='mission_controller',
@@ -106,28 +99,12 @@ def generate_launch_description():
         arguments=["-0.5", "0", "0.95", "0", "0", "0", "base_footprint","base_link", "zed_camera_center"]
     )
 
-    # ekf_node = Node(
-    #     package='ekf_node',
-    #     executable='ekf_node',
-    #     name='ekf_node',
-    #     output='screen',
-    #     # arguments=['--ros-args', '--log-level', 'warn'],
-    # )
-
     graph_slam_node = Node(
         package='graph_slam',
         executable='graph_slam_node',
         name='graph_slam_node',
         output='screen',
     )
-
-    # p_puma_node = Node(
-    #     package='p-puma',
-    #     executable='control_node',
-    #     name='p_puma',
-    #     parameters=[ppuma_config_file],
-    #     output='screen'
-    # ),
 
     # Declare the log level argument
     # log_level = DeclareLaunchArgument(
@@ -193,7 +170,6 @@ def generate_launch_description():
         graph_slam_node,
         foxglove_bridge,
         race_director_node,
-        can_bridge_node,
-        # p_puma_node,
+        can_bridge_node
 
     ])

@@ -16,12 +16,12 @@
   <!-- Pacotes que os launch files podem lançar -->
   <exec_depend>zed_bridge</exec_depend>
   <exec_depend>mission_controller</exec_depend>
-  <exec_depend>state_controller</exec_depend>
+  <exec_depend>race_director</exec_depend>
   <exec_depend>tf2_ros</exec_depend>
   <exec_depend>foxglove_bridge</exec_depend>
-  <exec_depend>spac2_0</exec_depend>
-  <exec_depend>safety_monitor</exec_depend>
-  <exec_depend>ekf_node</exec_depend>
+  <exec_depend>p-puma</exec_depend>
+  <exec_depend>can_bridge</exec_depend>
+  <exec_depend>graph_slam</exec_depend>
   <exec_depend>xsens_mti_ros2_driver</exec_depend>
 
   <export>
