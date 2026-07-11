@@ -35,11 +35,10 @@ def generate_launch_description():
         #     name='ekf_node',
         #     output='screen',
         # ),
-        Node(
-            package='spac2_0',
-            executable='spac_node',
-            name='spac_node',
-            parameters=[spac_config_file],
+         Node(
+            package='p-puma',
+            executable='control_node',
+            name='p_puma',
             output='screen'
         ),
         Node(
