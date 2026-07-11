@@ -91,13 +91,6 @@ def generate_launch_description():
         output='screen',
     )
 
-    recording_bridge_node = Node(
-        package='zed_bridge',
-        executable='recording_bridge.py',
-        name='recording_bridge',
-        output='screen'
-    )
-
     imu_node = Node(
         package='xsens_mti_ros2_driver',  # Correct package name
         executable='xsens_mti_node',
@@ -196,7 +189,6 @@ def generate_launch_description():
         tf_node,
         mission_controller_node,
         camera_container,
-        recording_bridge_node,
         imu_node,
         graph_slam_node,
         foxglove_bridge,
