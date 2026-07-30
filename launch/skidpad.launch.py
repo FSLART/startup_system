@@ -19,9 +19,8 @@ def generate_launch_description():
             output='screen'
         ),
         Node(
-            package='path_planner',
-            executable='my_node',
-            name='path_planner',
-            arguments=['--ros-args', '-p', 'planner_mode:=2'],
+            package='skidpad',
+            executable='skidpad_exec',
+            name='skidpadNode',
         ),
     ])
